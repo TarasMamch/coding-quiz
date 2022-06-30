@@ -47,13 +47,13 @@ section {
     visibility: collapse;
 }
 
-.answer-buttons {
+.answer-buttons-group {
     display: flex;
     flex-direction: column;
     align-content: flex-start;
 }
 
-.answer-buttons button {
+.answer-buttons-group button {
     width: 30%;
     height: 50px;
     margin: 10px 0px;
