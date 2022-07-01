@@ -11,17 +11,17 @@
 
 <body>
     <header>
-        <p onclick="highScorePage()">View Highscores</p>
+        <p onclick="highScorePage()" class="view-highscore-button">View Highscores</p>
         <div class="timer-container">
             <p>Time:</p>
-            <p id="timer"></p>
+            <p id="timer">60</p>
         </div>
     </header>
     <main>
         <h1>Coding Quiz Challenge</h1>
         <p>Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers
             will penalize your score/time by ten seconds!</p>
-        <button id="start-quiz-button">Start Quiz</button>
+        <button id="start-quiz-button" onclick="startButton()">Start Quiz</button>
     </main>
     <section>
         <h1 id="question"></h1>
@@ -45,7 +45,7 @@
         <h1>High Scores</h1>
         <ol id="score-list"></ol>
         <div class="high-score-page-buttons">
-            <button onclick="clearStorage()">Clear High Scores</button>
+            <button onclick="clearLocalStorage()">Clear High Scores</button>
             <button onclick="refreshPage()">Go Back</button>
         </div>
     </div>

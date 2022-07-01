@@ -1,10 +1,9 @@
-var startButton = document.querySelector("#start-quiz-button")
+var viewHighScoreButton = document.querySelector('.view-highscore-button')
 var startScreen = document.querySelector("main")
 var quizSection = document.querySelector("section")
 var questionEl = document.querySelector("#question")
 var quizEndPage = document.querySelector('.quiz-end-section')
 var timeRemaining = 60
-document.querySelector('#timer').innerHTML = timeRemaining
 
 var quizMaterial = [
     {
@@ -29,12 +28,13 @@ var quizMaterial = [
     },
 ]
 
-startButton.addEventListener("click", function () {
+function startButton() {
     startScreen.style.display = "none";
-    quizSection.style.display = 'flex'
+    quizSection.style.display = 'flex';
+    viewHighScoreButton.style.visibility = 'hidden'
     quiz()
     startTimer()
-})
+}
 
 var questionSelector = 0
 var answerGiven = null
@@ -107,14 +107,15 @@ function scoreSubmition() {
     var scoresArray = JSON.parse(localStorage.getItem('allScores') || '[]')
     scoresArray.push(score)
     localStorage.setItem('allScores', JSON.stringify(scoresArray))
-    console.log(localStorage.getItem('allScores'))
     document.querySelector('.quiz-end-section').style.display = "none"
     highScorePage()
 }
 
 function highScorePage() {
     startScreen.style.display = "none";
+    quizSection.style.display = 'none';
     document.querySelector('.high-score-display').style.display = "flex"
+    stopTimer()
     var scoreList = document.getElementById('score-list')
     var scoresArray = JSON.parse(localStorage.getItem('allScores') || '[]')
     for (let i = 0; i < scoresArray.length; i++) {
@@ -125,7 +126,7 @@ function highScorePage() {
     }
 }
 
-function clearStorage() {
+function clearLocalStorage() {
     localStorage.clear()
     location.reload()
 }
