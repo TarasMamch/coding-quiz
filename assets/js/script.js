@@ -57,7 +57,6 @@ document.querySelector('.answer-button-3').addEventListener("click", function ()
     checkAnswers()
 })
 
-
 function quiz() {
     if (questionSelector > 3) {
         stopTimer = true
@@ -115,7 +114,6 @@ function highScorePage() {
     startScreen.style.display = "none";
     quizSection.style.display = 'none';
     document.querySelector('.high-score-display').style.display = "flex"
-    stopTimer()
     var scoreList = document.getElementById('score-list')
     var scoresArray = JSON.parse(localStorage.getItem('allScores') || '[]')
     for (let i = 0; i < scoresArray.length; i++) {
