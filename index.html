@@ -11,6 +11,7 @@
 
 <body>
     <header>
+        <p onclick="highScorePage()">View Highscores</p>
         <div class="timer-container">
             <p>Time:</p>
             <p id="timer"></p>
@@ -31,7 +32,23 @@
             <button class="answer-button-3"></button>
         </div>
     </section>
-
+    <div class="quiz-end-section">
+        <h1>All Done!</h1>
+        <h2 id="final-score">Your final score is </h2>
+        <div class="score-submit-form">
+            <div>Enter initials: <input type="text" id="text-box"> <button onclick="scoreSubmition()"
+                    id="submit">Submit</button>
+            </div>
+        </div>
+    </div>
+    <div class="high-score-display">
+        <h1>High Scores</h1>
+        <ol id="score-list"></ol>
+        <div class="high-score-page-buttons">
+            <button onclick="clearStorage()">Clear High Scores</button>
+            <button onclick="refreshPage()">Go Back</button>
+        </div>
+    </div>
     <script src="./assets/js/script.js"></script>
 </body>
 

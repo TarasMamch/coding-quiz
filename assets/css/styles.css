@@ -3,6 +3,10 @@ body {
     font-family: sans-serif;
 }
 
+button {
+    background-color: lightblue;
+}
+
 .timer-container {
     display: flex;
     font-size: 25px;
@@ -14,6 +18,13 @@ body {
 header {
     display: flex;
     justify-content: flex-end;
+    justify-content: space-between;
+    width: 95%;
+    margin: 0 auto;
+}
+
+header p {
+    font-size: 25px;
 }
 
 main {
@@ -33,18 +44,16 @@ main p {
     font-size: 20px;
     padding: 10px 40px;
     border-radius: 10px;
-    background-color: lightblue;
     margin-top: 20px;
     margin-bottom: 100px;
 }
 
 section {
-    display: flex;
+    display: none;
     flex-direction: column;
     width: 50%;
     margin: 0 auto;
     margin-top: 100px;
-    visibility: collapse;
 }
 
 .answer-buttons-group {
@@ -57,5 +66,39 @@ section {
     width: 30%;
     height: 50px;
     margin: 10px 0px;
+    border-radius: 10px;
+}
+
+.quiz-end-section {
+    display: none;
+    flex-direction: column;
+    text-align: start;
+    align-items: center;
+}
+
+.high-score-display {
+    display: none;
+    flex-direction: column;
+    margin: 0 auto;
+    align-items: center;
+}
+
+.high-score-display button {
+    height: 30px;
+    width: 140px;
+    border-radius: 10px;
+}
+
+.high-score-page-buttons {
+    width: 300px;
+    display: flex;
+    justify-content: space-between;
+}
+
+li {
+    width: 300px;
+    padding: 20px 0px;
+    margin: 5px 0px;
+    background-color: lightblue;
     border-radius: 10px;
 }

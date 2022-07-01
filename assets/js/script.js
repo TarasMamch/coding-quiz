@@ -2,9 +2,9 @@ var startButton = document.querySelector("#start-quiz-button")
 var startScreen = document.querySelector("main")
 var quizSection = document.querySelector("section")
 var questionEl = document.querySelector("#question")
-var timerEl = 60
-document.querySelector('#timer').innerHTML = timerEl
-
+var quizEndPage = document.querySelector('.quiz-end-section')
+var timeRemaining = 60
+document.querySelector('#timer').innerHTML = timeRemaining
 
 var quizMaterial = [
     {
@@ -24,20 +24,21 @@ var quizMaterial = [
     },
     {
         question: 'A very useful tool used during development and debugging for printing content to the debugger is:',
-        answers: ["JavaScript", "terminal/bash", "for loops", "console.log"],
-        correctAnswer: 3
+        answers: ["console.log", "terminal/bash", "for loops", "JavaScript"],
+        correctAnswer: 0
     },
 ]
 
 startButton.addEventListener("click", function () {
     startScreen.style.display = "none";
-    quizSection.style.visibility = "visible"
+    quizSection.style.display = 'flex'
     quiz()
-    StartTimer()
+    startTimer()
 })
 
 var questionSelector = 0
 var answerGiven = null
+var stopTimer = false
 
 document.querySelector('.answer-button-0').addEventListener("click", function () {
     answerGiven = 0
@@ -58,57 +59,77 @@ document.querySelector('.answer-button-3').addEventListener("click", function ()
 
 
 function quiz() {
-    var answerSelector = 0
-    if (questionSelector == 0) {
-        for (i = 0; i < 4; i++) {
-            questionEl.innerHTML = quizMaterial[0].question
-            document.querySelector(`.answer-button-${answerSelector}`).innerHTML = quizMaterial[0].answers[answerSelector]
-            answerSelector++
-        } answerSelector = 0;
-    } if (questionSelector == 1) {
-        for (i = 0; i < 4; i++) {
-            questionEl.innerHTML = quizMaterial[1].question
-            document.querySelector(`.answer-button-${answerSelector}`).innerHTML = quizMaterial[1].answers[answerSelector]
-            answerSelector++
-        } answerSelector = 0;
-    } if (questionSelector == 2) {
-        for (i = 0; i < 4; i++) {
-            questionEl.innerHTML = quizMaterial[2].question
-            document.querySelector(`.answer-button-${answerSelector}`).innerHTML = quizMaterial[2].answers[answerSelector]
-            answerSelector++
-        } answerSelector = 0;
-    } if (questionSelector == 3) {
-        for (i = 0; i < 4; i++) {
-            questionEl.innerHTML = quizMaterial[3].question
-            document.querySelector(`.answer-button-${answerSelector}`).innerHTML = quizMaterial[3].answers[answerSelector]
-            answerSelector++
-        } answerSelector = 0;
+    if (questionSelector > 3) {
+        stopTimer = true
+        return
+    } else {
+        questionEl.innerHTML = quizMaterial[questionSelector].question
+    }
+    for (i = 0; i < 4; i++) {
+        document.querySelector(`.answer-button-${i}`).innerHTML = quizMaterial[questionSelector].answers[i]
     }
 }
 
 function checkAnswers() {
     if (answerGiven == quizMaterial[questionSelector].correctAnswer) {
-        console.log('correct')
         questionSelector++
         answerGiven = null
         quiz()
     } else {
-        console.log('wrong')
         questionSelector++
         answerGiven = null
-        timerEl -= 10
+        timeRemaining -= 10
         quiz()
     }
 }
 
-function StartTimer() {
+function startTimer() {
     var timeInterval = setInterval(function () {
-        timerEl--;
-        document.querySelector('#timer').innerHTML = timerEl
+        timeRemaining--;
+        document.querySelector('#timer').innerHTML = timeRemaining
 
-        if (timerEl === 0) {
+        if (timeRemaining === 0 || stopTimer == true) {
             clearInterval(timeInterval);
-            console.log('test')
+            scorePage()
         }
     }, 1000)
+}
+
+function scorePage() {
+    quizEndPage.style.display = 'flex'
+    quizSection.style.display = 'none'
+    var score = document.createTextNode(timeRemaining)
+    document.querySelector('#final-score').appendChild(score)
+}
+
+function scoreSubmition() {
+    var score = `${document.getElementById('text-box').value}-${timeRemaining}`
+    var scoresArray = JSON.parse(localStorage.getItem('allScores') || '[]')
+    scoresArray.push(score)
+    localStorage.setItem('allScores', JSON.stringify(scoresArray))
+    console.log(localStorage.getItem('allScores'))
+    document.querySelector('.quiz-end-section').style.display = "none"
+    highScorePage()
+}
+
+function highScorePage() {
+    startScreen.style.display = "none";
+    document.querySelector('.high-score-display').style.display = "flex"
+    var scoreList = document.getElementById('score-list')
+    var scoresArray = JSON.parse(localStorage.getItem('allScores') || '[]')
+    for (let i = 0; i < scoresArray.length; i++) {
+        var score = scoresArray[i];
+        var li = document.createElement('li')
+        li.innerHTML = score
+        scoreList.appendChild(li)
+    }
+}
+
+function clearStorage() {
+    localStorage.clear()
+    location.reload()
+}
+
+function refreshPage() {
+    location.reload()
 }
